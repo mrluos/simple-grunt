@@ -1,5 +1,6 @@
 module.exports = function(grunt) {
-	var cmd = grunt.option('cmd') || '';
+	var map = grunt.option('map') || '';
+	var target = grunt.option('page') || '';
 	var opt = {
 		pkg: grunt.file.readJSON('package.json'),
 	}
@@ -23,13 +24,6 @@ module.exports = function(grunt) {
 		//所有pagelist的值
 		keyList = [],
 		outPath = 'out/';
-	/*
-	 *删除map缓存
-	 */
-	if (cmd == 'cls') {
-		grunt.file.delete(mapPath);
-		grunt.fail.fatal('remove map caching...');
-	}
 	for (var item in operatorAry) {
 		supportSonaTask.push(item);
 	}
@@ -37,16 +31,53 @@ module.exports = function(grunt) {
 	for (var item in pageList) {
 		keyList.push(item);
 	};
-	var target = grunt.option('page') || '';
-	if (target == '') {
-		grunt.fatal('please use --page=XXX ,set grunt task...');
-	}
+
 	var targetAry = [],
 		sonTask = '';
 	if (target.indexOf(":") !== -1) {
 		var targetAry = target.split(':');
 		target = targetAry[0];
 		sonTask = targetAry[1];
+	}
+	var mapAry = [],
+		mapSonParam = '';
+	if (map.indexOf(":") !== -1) {
+		var mapAry = map.split(':');
+		map = mapAry[0];
+		mapSonParam = mapAry[1];
+	}
+
+	/*
+	 *删除map缓存
+	 */
+	if (map == 'cls') {
+		// grunt.file.delete(mapPath);
+		var flag = true;
+		var mapList = [];
+		grunt.file.recurse(mapPath, function callback(abspath, rootdir, subdir, filename) {
+			mapList.push(filename);
+
+			if (filename == (mapSonParam.indexOf(".json") === -1 ? (mapSonParam + ".json") : mapSonParam)) {
+				flag = false;
+				grunt.file.delete(abspath);
+				grunt.log.warn('remove "' + abspath + '"" map file...');
+			}
+		})
+		if (mapSonParam == '') {
+			console.log('all map files:', mapList);
+			grunt.fatal('please input map filename,above....');
+		}
+		if (flag) {
+			grunt.fatal('map file "' + mapSonParam + '" not found ...');
+		}
+		//grunt.log.warn('remove map caching complate...');
+
+	}
+	/*
+	 *获取操作的页面
+	 */
+	if (target == '') {
+		grunt.fatal('please use -page=pagename:task ,select page and run task...');
 	}
 
 	if (!pageList[target]) {
@@ -222,7 +253,11 @@ module.exports = function(grunt) {
 	if (!hasMap(mapPath, target + ".json")) {
 		console.log('crate ' + target + ' config ..');
 		conf = getPageData(curSetting, opt);
-		saveMap(mapPath, target, conf);
+		console.log('map', map);
+		if (map == 'add') {
+
+			saveMap(mapPath, target, conf)
+		};
 	} else {
 		console.log('read ' + target + '  config Caching..');
 		conf = grunt.file.readJSON(mapPath + target + ".json");
