@@ -177,20 +177,23 @@ module.exports = function(grunt) {
 		}
 		//sass 处理·
 		var cssWatch = {},
-			sassWatch = {};
+			sassWatch = [];
 		if (_obj['sass']) {
+			var sassObj = _obj["sass"];
 			sass['dist'] = {
-				files: [{
-					expand: true,
-					src: _obj['sass']["src"],
-					dest: cssPath,
-					ext: '.css'
-				}]
+				options: { // Target options
+					style: 'compressed'
+				},
+				files: sassObj
 			};
+			for (var item in sassObj) {
+				sassWatch.push(sassObj[item]);
+			}
 			_opt['sass'] = sass;
 		}
 		if (cssObj) {
 			cssmin = {
+
 				files: {
 					'expand': true,
 					'src': cssObj['src'],
@@ -218,7 +221,7 @@ module.exports = function(grunt) {
 			 */
 			watch['css'] = watch['css'] || {};
 			watch['css'] = {
-				files: cssObj['src'].concat(_obj['sass']["src"]),
+				files: cssObj['src'].concat(sassWatch),
 				tasks: ['sass', 'cssmin', 'autoprefixer', 'concat:css'],
 				options: {
 					spawn: false
