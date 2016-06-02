@@ -1,0 +1,85 @@
+{
+  "page": {
+    "js": [
+      {
+        "src": [
+          "1.js",
+          "2.js"
+        ],
+        "dest": "1.core.min.js"
+      },
+      {
+        "src": [
+          "1.js",
+          "2.js"
+        ],
+        "dest": "2.core.min.js"
+      }
+    ],
+    "css": [
+      {
+        "src": [
+          "a/b/c/1.css",
+          "2.css"
+        ],
+        "dest": "1.core.min.css"
+      },
+      {
+        "src": [
+          "1.css",
+          "2.css"
+        ],
+        "dest": "2.core.min.css"
+      }
+    ]
+  },
+  "page2": {
+    "js": [
+      {
+        "src": [
+          "D:/WWW/duoduosdk/web.app/h5.x/ttmwy/static/js/index.js"
+        ],
+        "dest": "D:/WWW/duoduosdk/web.app/h5.x/ttmwy/static/js/index.min.js"
+      },
+      {
+        "src": [
+          "D:/WWW/duoduosdk/web.app/h5.x/ttmwy/static/js/active.js"
+        ],
+        "dest": "D:/WWW/duoduosdk/web.app/h5.x/ttmwy/static/js/active.min.js"
+      }
+    ],
+    "css": [
+      {
+        "src": [
+          "D:/WWW/duoduosdk/web.app/h5.x/ttmwy/static/css/index.css"
+        ],
+        "dest": "D:/WWW/duoduosdk/web.app/h5.x/ttmwy/static/css/index.min.css"
+      },
+      {
+        "src": [
+          "D:/WWW/duoduosdk/web.app/h5.x/ttmwy/static/css/active.css"
+        ],
+        "dest": "D:/WWW/duoduosdk/web.app/h5.x/ttmwy/static/css/active.min.css"
+      }
+    ]
+  },
+  "page3": {
+    "js": {
+      "src": ["1.js","2.js","3.js","4.js"],
+      "dest": [
+        ["1,2","dest/1.core.min.js"],
+        ["3,4","dest/2.core.min.js"]
+      ]
+    },
+    "css": {
+      "src": ["1.css","2.css","3.css","4.css"],
+      "dest": [
+        ["1,2","dest/1.core.min.css"],
+        ["3,4","dest/2.core.min.css"]
+      ]
+    },
+    "sass": {
+      "src": ["12.sass","22.sass","test2.sass"]
+    }
+  }
+}
