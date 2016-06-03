@@ -1,0 +1,85 @@
+{
+	"pkg": {
+		"name": "spread",
+		"version": "1.0.0",
+		"description": "spread grunt ",
+		"main": "index.js",
+		"dependencies": {
+			"grunt-contrib-copy": "^0.8.2"
+		},
+		"devDependencies": {
+			"grunt": "^0.4.5",
+			"grunt-autoprefixer": "^3.0.4",
+			"grunt-contrib-clean": "^1.0.0",
+			"grunt-contrib-compass": "^1.1.0",
+			"grunt-contrib-concat": "^1.0.0",
+			"grunt-contrib-copy": "^0.8.2",
+			"grunt-contrib-cssmin": "^0.14.0",
+			"grunt-contrib-imagemin": "^1.0.0",
+			"grunt-contrib-jshint": "^1.0.0",
+			"grunt-contrib-sass": "^1.0.0",
+			"grunt-contrib-uglify": "^0.11.1",
+			"grunt-contrib-watch": "^0.6.1"
+		},
+		"scripts": {
+			"test": "echo \"Error: no test specified\" && exit 1"
+		},
+		"author": "",
+		"license": "ISC"
+	},
+	"uglify": {
+		"dist": {
+			"files": {
+				"dest/1.core.min.js": ["src/1.js", "src/2.js"]
+			}
+		}
+	},
+	"sass": {
+		"dist": {
+			"options": {
+				"style": "compressed",
+				"sourcemap": "none"
+			},
+			"files": {
+				"dest/mysass.css": "src/mysass.sass"
+			}
+		}
+	},
+	"autoprefixer": {
+		"fiels0": {
+			"src": "dest/1.core.min.css"
+		},
+		"fiels1": {
+			"src": "dest/2.core.min.css"
+		}
+	},
+	"cssmin": {
+		"dist": {
+			"files": {
+				"dest/1.core.min.css": ["src/1.css", "src/2.css"],
+				"dest/2.core.min.css": ["src/1.css", "src/2.css", "src/mysass.css"]
+			}
+		}
+	},
+	"watch": {
+		"js": {
+			"files": ["src/1.js", "src/2.js"],
+			"tasks": ["uglify"],
+			"options": {
+				"spawn": false
+			}
+		},
+		"css": {
+			"files": ["src/1.css", "src/2.css", "src/1.css", "src/2.css", "src/mysass.css", "src/mysass.sass"],
+			"tasks": ["sass", "cssmin", "autoprefixer"],
+			"options": {
+				"spawn": false
+			}
+		}
+	},
+	"clean": {
+		"all": {
+			"src": "out/"
+		}
+	}
+}

@@ -1,23 +1,14 @@
 {
-  "pagename": {
+  "page1": {
     "js": {
-      "src": ["src/1.js", "src/2.js", "src/3.js", "src/4.js"],
-      "dest": [
-        ["1,2", "dest/1.core.min.js"],
-        ["3,4", "dest/2.core.min.js"]
-      ]
+      "dest/1.core.min.js": ["src/1.js", "src/2.js"]
     },
     "css": {
-      "src": ["src/1.css", "src/2.css", "src/3.css", "src/4.css"],
-      "dest": [
-        ["1,2", "dest/1.core.min.css"],
-        ["3,4", "dest/2.core.min.css"]
-      ]
+      "dest/1.core.min.css": ["src/1.css", "src/2.css"],
+      "dest/2.core.min.css": ["src/1.css", "src/2.css","src/mysass.css"]
     },
     "sass": {
-      "src/12.css": "dest/12.sass",
-      "src/22.css": "dest/22.sass",
-      "src/test2.css": "dest/test2.sass"
+      "dest/mysass.css": "src/mysass.sass"
     }
   }
 }

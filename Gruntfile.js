@@ -1,5 +1,5 @@
 module.exports = function(grunt) {
-	var map = grunt.option('map') || '';
+	var map = grunt.option('cmd') || '';
 	var target = grunt.option('page') || '';
 	var opt = {
 		pkg: grunt.file.readJSON('package.json'),
@@ -14,11 +14,11 @@ module.exports = function(grunt) {
 	var pageList = grunt.file.readJSON('pagelist.json'),
 		//支持的行为
 		operatorAry = {
-			'default': ['clean', 'uglify', 'sass', 'cssmin', 'autoprefixer', 'concat', 'watch'],
+			'default': ['clean', 'uglify', 'sass', 'cssmin', 'autoprefixer', 'watch'],
 			//js操作
-			'js': ['clean', 'uglify', 'concat:js', 'watch:js'],
+			'js': ['clean', 'uglify', 'watch:js'],
 			//css操作
-			'css': ['clean', 'sass', 'cssmin', 'autoprefixer', 'concat:css', 'watch:css'],
+			'css': ['clean', 'sass', 'cssmin', 'autoprefixer', 'watch:css'],
 		},
 		supportSonaTask = [],
 		//所有pagelist的值
@@ -129,46 +129,28 @@ module.exports = function(grunt) {
 	function getPageData(_obj, _opt) {
 		var jsObj = _obj['js'],
 			cssObj = _obj['css'],
+			sassObj = _obj['sass'],
 			uglify = {},
 			watch = {},
 			clean = {},
 			sass = {},
 			cssmin = {},
-			concat = {},
-			autoprefixer = {},
-			cssPath = outPath + "css/",
-			jsPath = outPath + "js/";
+			autoprefixer = {};
 		//js 处理
 		if (jsObj) {
-			uglify = {
-				files: {
-					'expand': true,
-					'src': jsObj['src'],
-					'dest': jsPath
-				}
+			//添加uglify的files任务
+			var jsWatchFiles = [];
+			uglify["dist"] = {};
+			uglify["dist"]["files"] = jsObj;
+			for (var item in jsObj) {
+				jsWatchFiles = jsWatchFiles.concat(jsObj[item]);
 			}
-			var concatjs = {};
-			for (var item in jsObj['dest']) {
-				var current = jsObj['dest'][item];
-				var filesList = [];
-				current[0].split(',').map(function(v, index) {
-					filesList.push(jsPath + v + '.js');
-				});
-				// concatjs['filesjs' + item] = {
-				// 	'src': filesList,
-				// 	'dest': current[1],
-				// }
-				concatjs[current[1]] = filesList;
-				console.log(concatjs);
-			}
-			concat['js'] = {};
-			concat['js']['files'] = concatjs;
 			/**
 			 * 添加watch
 			 */
 			watch['js'] = {
-				files: jsObj['src'],
-				tasks: ['uglify', 'concat:js'],
+				files: jsWatchFiles,
+				tasks: ['uglify'],
 				options: {
 					spawn: false
 				}
@@ -177,12 +159,13 @@ module.exports = function(grunt) {
 		}
 		//sass 处理·
 		var cssWatch = {},
-			sassWatch = [];
-		if (_obj['sass']) {
-			var sassObj = _obj["sass"];
+			sassWatch = [],
+			concatcss = {};
+		if (sassObj) {
 			sass['dist'] = {
 				options: { // Target options
-					style: 'compressed'
+					style: 'compressed',
+					sourcemap: "none"
 				},
 				files: sassObj
 			};
@@ -192,37 +175,25 @@ module.exports = function(grunt) {
 			_opt['sass'] = sass;
 		}
 		if (cssObj) {
-			cssmin = {
-
-				files: {
-					'expand': true,
-					'src': cssObj['src'],
-					'dest': cssPath
+			cssmin['dist'] = {};
+			cssmin['dist']["files"] = cssObj;
+			var i = 0,
+				cssSrcAry = [];
+			for (var item in cssObj) {
+				autoprefixer["fiels" + i] = {
+					"src": item
 				}
+				console.log(cssObj[item]);
+				cssSrcAry = cssSrcAry.concat(cssObj[item]);
+				i++;
 			}
-			autoprefixer = {
-				all: {
-					src: outPath + "css/*.css"
-				}
-			}
-			var concatcss = {};
-			for (var item in cssObj['dest']) {
-				var current = cssObj['dest'][item];
-				var filesList = [];
-				current[0].split(',').map(function(v, index) {
-					filesList.push(cssPath + v + '.css');
-				});
-				concatcss[current[1]] = filesList;
-			}
-			concat['css'] = {};
-			concat['css']['files'] = concatcss;
 			/**
 			 * 添加watch
 			 */
 			watch['css'] = watch['css'] || {};
 			watch['css'] = {
-				files: cssObj['src'].concat(sassWatch),
-				tasks: ['sass', 'cssmin', 'autoprefixer', 'concat:css'],
+				files: cssSrcAry.concat(sassWatch),
+				tasks: ['sass', 'cssmin', 'autoprefixer'],
 				options: {
 					spawn: false
 				}
@@ -231,7 +202,6 @@ module.exports = function(grunt) {
 			_opt['cssmin'] = cssmin;
 		}
 		_opt['watch'] = watch;
-		_opt['concat'] = concat;
 		_opt['clean'] = {
 			all: {
 				'src': outPath
@@ -253,15 +223,14 @@ module.exports = function(grunt) {
 		}
 
 	}
-	if (!hasMap(mapPath, target + ".json")) {
+	if (map == 'add+' || !hasMap(mapPath, target + ".json")) {
 		console.log('crate ' + target + ' config ..');
 		conf = getPageData(curSetting, opt);
-		console.log('map', map);
-		if (map == 'add') {
-
+		if (map == 'add' || map == 'add+') {
 			saveMap(mapPath, target, conf)
-		};
+		}
 	} else {
+
 		console.log('read ' + target + '  config Caching..');
 		conf = grunt.file.readJSON(mapPath + target + ".json");
 	}

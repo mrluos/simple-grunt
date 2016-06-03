@@ -1,35 +1,16 @@
 {
-  "pagename": {
+  "page1": { //这里的节点名称就是 使用grunt -page时候选择的页面的参数的值
     "js": {
-      "src": ["src/1.js", "src/2.js", "src/3.js", "src/4.js"], //src 节点配置原始的文件（源文件）
-      "dest": [
-          [
-            "1,2", //需要压缩何必的js 文件
-            "dest/1.core.min.js"
-          ],
-          [
-            "3,4",
-            "dest/2.core.min.js"
-          ]
-        ] //dest 配置需要合并压缩的文件
-    },
-    "sass": {
-      "src/12.css": "dest/12.sass", //key 对应输出的文件路径 value 对应的是sass文件的路径
-      "src/22.css": "dest/22.sass",
-      "src/test2.css": "dest/test2.sass"
+      "dest/1.core.min.js": ["src/1.js", "src/2.js"]
     },
     "css": {
-      "src": ["src/1.css", "src/2.css", "src/3.css", "src/4.css"],
-      "dest": [
-        [
-          "1,2",
-          "dest/1.core.min.css"
-        ],
-        [
-          "3,4",
-          "dest/2.core.min.css"
-        ]
-      ]
+      "dest/1.core.min.css": ["src/1.css", "src/2.css"],
+      //如果要合并sass文件直接写成.css为后缀。
+      //并且在面配置的sass节点中加入这个文件
+      "dest/2.core.min.css": ["src/1.css", "src/2.css", "src/mysass.css"]
+    },
+    "sass": {
+      "dest/mysass.css": "src/mysass.sass"
     }
   }
 }

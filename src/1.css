@@ -1,0 +1,12 @@
+body {
+    font-size: 19px
+}
+
+.h {
+    border-radius: 6px;
+    animation: rotaing 1s ease-in
+}
+.h2{
+    border-radius: 6px;
+    animation: rotaing 1s ease-in
+}
