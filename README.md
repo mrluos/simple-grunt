@@ -1,35 +1,28 @@
 # simple-grunt
 一个简单的gruntfile.js例子，用于压缩合并css,js。
 
-#获取文件
-
+# 获取文件
 <code>
   //创建一个文件夹 
-  
   mkdir grunt-simple
-  
   cd grunt-simple
-  
   //克隆版本
-  
   git clone https://github.com/mrluos/simple-grunt.git
-  
 </code>
 
-
-#安装插件
+# 安装插件
 <code>
   //安装文件
   npm install
 </code>
 
-#配置需要操作的页面信息
+# 配置需要操作的页面信息
 在根目录下的pagelist.json添加页面的节点，配置需要压缩的文件信息，具体参照pagelist_demo.json.
 
-#执行压缩合并
-1.根据pagelist.json文件的配置执行具体的操作 \r\n
+## 执行压缩合并
+1.根据pagelist.json文件的配置执行具体的操作。
 <code>
-  //pagename是在pagelist.json配置的一级节点名称。 <br>
+  //pagename是在pagelist.json配置的一级节点名称。
   grunt  -page=pagename
 </code>
 
@@ -48,16 +41,14 @@
 <code>
   //执行默认的操作['clean', 'uglify', 'sass', 'cssmin', 'autoprefixer', 'watch']
   grunt  -page=pagename 
-
+  
   //执行css的操作['clean', 'sass', 'cssmin', 'autoprefixer', 'watch:css']
   grunt  -page=pagename:css
-
+  
   //执行js的操作['clean', 'uglify', 'watch:js']
   grunt  -page=pagename:js
-
+  
 </code>
-
-
 
 #文件结构
 |-root
