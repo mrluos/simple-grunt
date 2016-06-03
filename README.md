@@ -16,11 +16,11 @@
 在根目录下的pagelist.json添加页面的节点，配置需要压缩的文件信息，具体参照pagelist_demo.json.  
 
 ## 执行压缩合并  
-1.根据pagelist.json文件的配置执行具体的操作。  
+### 根据pagelist.json文件的配置执行具体的操作。  
 //pagename是在pagelist.json配置的一级节点名称。  
 `grunt  -page=pagename`
 
-2.保留执行时生成的任务配置文件  
+### 保留执行时生成的任务配置文件  
 //-cmd=add. 会在根目录下生成一个map文件夹，保存pagename.json文件，可以自由编辑配置pagename.json文件  
 //达到自己想要的效果。  
 `grunt  -page=pagename -cmd=add`  
@@ -29,7 +29,7 @@
 //覆盖原来生成的配置文件内容  
 `grunt  -page=pagename -cmd=add+`
 
-3.其他  
+### 其他  
 //执行默认的操作['clean', 'uglify', 'sass', 'cssmin', 'autoprefixer', 'watch']  
 `grunt  -page=pagename `  
 //执行css的操作['clean', 'sass', 'cssmin', 'autoprefixer', 'watch:css']  
