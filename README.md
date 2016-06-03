@@ -3,7 +3,7 @@
 
 #获取文件
 <code>
-  //创建一个文件夹
+  //创建一个文件夹 \r
   mkdir grunt-simple
   cd grunt-simple
   //克隆版本
