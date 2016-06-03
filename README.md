@@ -2,13 +2,20 @@
 一个简单的gruntfile.js例子，用于压缩合并css,js。
 
 #获取文件
+
 <code>
-  //创建一个文件夹 \r
+  //创建一个文件夹 
+  
   mkdir grunt-simple
+  
   cd grunt-simple
+  
   //克隆版本
+  
   git clone https://github.com/mrluos/simple-grunt.git
+  
 </code>
+
 
 #安装插件
 <code>
@@ -20,9 +27,9 @@
 在根目录下的pagelist.json添加页面的节点，配置需要压缩的文件信息，具体参照pagelist_demo.json.
 
 #执行压缩合并
-1.根据pagelist.json文件的配置执行具体的操作
+1.根据pagelist.json文件的配置执行具体的操作 \r\n
 <code>
-  //pagename是在pagelist.json配置的一级节点名称。
+  //pagename是在pagelist.json配置的一级节点名称。 <br>
   grunt  -page=pagename
 </code>
 
