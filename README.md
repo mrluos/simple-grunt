@@ -2,14 +2,15 @@
 一个简单的gruntfile.js例子，用于压缩合并css,js。
 
 # 获取文件  
-//创建一个文件夹  
+创建一个文件夹  
 `mkdir grunt-simple`  
 `cd grunt-simple`  
-//克隆版本  
+
+克隆版本  
 `git clone https://github.com/mrluos/simple-grunt.git`
 
 # 安装插件
-//安装文件  
+安装文件  
 `npm install`
 
 # 配置需要操作的页面信息
@@ -17,24 +18,28 @@
 
 ## 执行压缩合并  
 ### 根据pagelist.json文件的配置执行具体的操作。  
-//pagename是在pagelist.json配置的一级节点名称。  
+pagename是在pagelist.json配置的一级节点名称。  
 `grunt  -page=pagename`
 
 ### 保留执行时生成的任务配置文件  
-//-cmd=add. 会在根目录下生成一个map文件夹，保存pagename.json文件，可以自由编辑配置pagename.json文件  
-//达到自己想要的效果。  
+-cmd=add.会在根目录下生成一个map文件夹，保存pagename.json文件，可以自由编辑配置pagename.json文件达到自己想要的效果。  
 `grunt  -page=pagename -cmd=add`  
-//删除具体的页面生成的配置文件  
+
+删除具体的页面生成的配置文件  
 `grunt  -cmd=cls:pagename` 
-//覆盖原来生成的配置文件内容  
+
+覆盖原来生成的配置文件内容  
 `grunt  -page=pagename -cmd=add+`
 
 ### 其他  
-//执行默认的操作['clean', 'uglify', 'sass', 'cssmin', 'autoprefixer', 'watch']  
+
+执行默认的操作['clean', 'uglify', 'sass', 'cssmin', 'autoprefixer', 'watch']  
 `grunt  -page=pagename `  
-//执行css的操作['clean', 'sass', 'cssmin', 'autoprefixer', 'watch:css']  
+
+执行css的操作['clean', 'sass', 'cssmin', 'autoprefixer', 'watch:css']  
 `grunt  -page=pagename:css`  
-//执行js的操作['clean', 'uglify', 'watch:js']  
+
+执行js的操作['clean', 'uglify', 'watch:js']  
 `grunt  -page=pagename:js`
 
 # 文件结构  
